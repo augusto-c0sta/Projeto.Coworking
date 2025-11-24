@@ -2,32 +2,31 @@ package model;
 
 public class CabineIndividual extends Espaco {
 	
-	private boolean maisDe4Horas;
-
     public CabineIndividual() {
         super();
     }
 
-    public CabineIndividual(String id, String nome, int capacidade, boolean disponivel,double precoPorHora, 
-    						boolean maisDe4Horas) {
+    public CabineIndividual(String id, String nome, int capacidade, boolean disponivel,double precoPorHora) {
         super(id, nome, capacidade, disponivel, precoPorHora);
-        this.maisDe4Horas=maisDe4Horas;
     }
-
-    @Override
+    
+    //método abstrato sobrescrito
+    @Override    
     public double calcularCustoReserva(double horas) {
         double total = horas * getPrecoPorHora();
-
-        // desconto de 10% acima de 4 horas
-        if (horas > 4) {
-            total *= 0.90; // aplica 10% de desconto
+        
+        // desconto de 10% acima de 4 horas       
+        if (horas>4) {
+            total *= 0.90; 
         }
 
         return total;
-    }
+	}
 
-    @Override
+	//toString
+    @Override 
     public String toString() {
-        return super.toString() + " | Tipo: Cabine Individual";
+        return super.toString() + 
+        		"\nDesconto de 10% para reservas acima de 4 Horas ";
     }
 }

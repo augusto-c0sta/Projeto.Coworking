@@ -13,15 +13,20 @@ public class SalaDeReuniao extends Espaco {
         super(id, nome, capacidade, disponivel, precoPorHora);
         this.usoDoProjetor = usoDoProjetor;
     }
-
-    @Override
+    
+    //método abstrato sobrescrito
+    @Override    
     public double calcularCustoReserva(double horas) {
         double total = horas * getPrecoPorHora();
-        if (usoDoProjetor) {
-            total += 15.00; // taxa fixa
+        
+        // taxa fixa para uso de projetor
+        if (usoDoProjetor) {        	
+            total += 15.00; 
         }
         return total;
     }
+    
+    //Getters e Setters
 
     public boolean isUsoDoProjetor() {
         return usoDoProjetor;
@@ -30,10 +35,12 @@ public class SalaDeReuniao extends Espaco {
     public void setUsoDoProjetor(boolean usoDoProjetor) {
         this.usoDoProjetor = usoDoProjetor;
     }
-
-    @Override
+    
+    //toString
+    @Override  
     public String toString() {
         return super.toString() +
-               " | Uso do projetor: " + (usoDoProjetor ? "Sim" : "Não");
+               "\nUso do projetor: " + (usoDoProjetor ? "Sim" : "Não") +
+               "\n";
     }
 }
