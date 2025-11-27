@@ -12,7 +12,7 @@ public class Reserva {
 	private LocalDateTime fim;
 	private double valorTotal;
 	
-	public Reserva(String idReserva, Espaco espaco, LocalDateTime inicio, LocalDateTime fim) {
+	public Reserva(String idReserva, Espaco espaco, LocalDateTime inicio, LocalDateTime fim){
 		this.idReserva=idReserva;
 		this.espaco=espaco;
 		this.inicio=inicio;
