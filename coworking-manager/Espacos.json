@@ -1,0 +1,11 @@
+[
+  {
+    "id": "S178",
+    "nome": "Sala Azul dos marinheiros",
+    "capacidade": 10,
+    "disponivel": true,
+    "precoPorHora": 50.0,
+    "tipo": "SalaDeReuniao",
+    "projetor": true
+  }
+]
