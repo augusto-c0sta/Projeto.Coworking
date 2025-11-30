@@ -134,7 +134,7 @@ public class EspacoDAO extends DAO {
                         obj.get("capacidade").getAsInt(),
                         obj.get("disponivel").getAsBoolean(),
                         obj.get("precoPorHora").getAsDouble(),
-                        getBooleanSafe(obj, "projetor")  // ← AGORA SEM ERRO
+                        getBooleanSafe(obj, "projetor")  
                     );
 
                 case "CabineIndividual":
