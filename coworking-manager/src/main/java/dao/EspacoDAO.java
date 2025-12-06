@@ -37,7 +37,7 @@ public class EspacoDAO extends DAO {
             obj.addProperty("tipo", "SalaDeReuniao");
             obj.addProperty("projetor", sala.isUsoDoProjetor());
         }
-        else if (espaco instanceof CabineIndividual cabine) {
+        else if (espaco instanceof CabineIndividual) {
             obj.addProperty("tipo", "CabineIndividual");
         }
         else if (espaco instanceof Auditorio auditorio) {
@@ -119,9 +119,7 @@ public class EspacoDAO extends DAO {
 
             JsonObject obj = elemento.getAsJsonObject();
 
-            if (!obj.get("id").getAsString().equals(id)) {
-                continue;
-            }
+            if (!obj.get("id").getAsString().equals(id)) continue;
 
             String tipo = obj.get("tipo").getAsString();
 
@@ -134,7 +132,7 @@ public class EspacoDAO extends DAO {
                         obj.get("capacidade").getAsInt(),
                         obj.get("disponivel").getAsBoolean(),
                         obj.get("precoPorHora").getAsDouble(),
-                        getBooleanSafe(obj, "projetor")  
+                        getBooleanSafe(obj, "projetor")
                     );
 
                 case "CabineIndividual":
@@ -153,11 +151,8 @@ public class EspacoDAO extends DAO {
                         obj.get("capacidade").getAsInt(),
                         obj.get("disponivel").getAsBoolean(),
                         obj.get("precoPorHora").getAsDouble(),
-                        obj.get("evento").getAsBoolean()
+                        getBooleanSafe(obj, "evento")
                     );
-
-                default:
-                    System.out.println("Tipo desconhecido: " + tipo);
             }
         }
 
