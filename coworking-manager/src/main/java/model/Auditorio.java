@@ -14,12 +14,10 @@ public class Auditorio extends Espaco {
 		this.evento=evento;
 	}
 	
-	//método abstrato sobrescrito
 	@Override	
 	public double calcularCustoReserva(double horas) {
 		double total=getPrecoPorHora()*horas;
 		
-		//taxa fixa para eventos
 		if(evento) {			
 			total += 100.00;
 		}
@@ -27,8 +25,6 @@ public class Auditorio extends Espaco {
 		return total;
 	}
 	
-	//Getters e Setters
-
 	public boolean isEvento() {
 		return evento;
 	}
@@ -37,9 +33,7 @@ public class Auditorio extends Espaco {
 		this.evento = evento;
 	}
 	
-	//toString
 	@Override
-	
     public String toString() {
         return super.toString() + 
                "\nEvento: " + (evento ? "Sim" : "Não") +

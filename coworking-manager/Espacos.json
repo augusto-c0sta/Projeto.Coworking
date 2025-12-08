@@ -16,5 +16,50 @@
     "precoPorHora": 100.0,
     "tipo": "Auditorio",
     "evento": false
+  },
+  {
+    "id": "0009",
+    "nome": "lalal",
+    "capacidade": 90,
+    "disponivel": true,
+    "precoPorHora": 90.0,
+    "tipo": "SalaDeReuniao",
+    "projetor": true
+  },
+  {
+    "id": "0008",
+    "nome": "Auditorio Azul",
+    "capacidade": 20,
+    "disponivel": true,
+    "precoPorHora": 80.0,
+    "tipo": "Auditorio",
+    "evento": true
+  },
+  {
+    "id": "1",
+    "nome": "Sala de reuniao amarela",
+    "capacidade": 40,
+    "disponivel": true,
+    "precoPorHora": 100.0,
+    "tipo": "SalaDeReuniao",
+    "projetor": true
+  },
+  {
+    "id": "8999",
+    "nome": "sala azul",
+    "capacidade": 80,
+    "disponivel": true,
+    "precoPorHora": 900.0,
+    "tipo": "SalaDeReuniao",
+    "projetor": true
+  },
+  {
+    "id": "n",
+    "nome": "m",
+    "capacidade": 8,
+    "disponivel": true,
+    "precoPorHora": 7.0,
+    "tipo": "SalaDeReuniao",
+    "projetor": false
   }
 ]

@@ -16,15 +16,12 @@ public class PagamentoService {
 
     public void processarPagamento(String idPagamento, String idReserva, double valor, String metodo) {
 
-        // buscar reserva
-        Reserva r = reservaDAO.buscarPorId(idReserva, new dao.EspacoDAO()); // seu buscarPorId tem assinatura (id, EspacoDAO)
+        Reserva r = reservaDAO.buscarPorId(idReserva, new dao.EspacoDAO());
         if (r == null) throw new RuntimeException("Reserva não encontrada");
 
-        // criar pagamento e salvar
         Pagamento p = new Pagamento(idPagamento, idReserva, valor, LocalDateTime.now(), metodo);
         pagamentoDAO.salvarPagamento(p);
 
-        // atualizar status da reserva para CONCLUIDA (ou outro fluxo que prefira)
         r.setStatus(ReservaStatus.CONCLUIDA);
         reservaDAO.atualizar(r);
     }

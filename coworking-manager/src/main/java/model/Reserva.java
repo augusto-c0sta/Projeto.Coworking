@@ -11,14 +11,12 @@ public class Reserva {
     private LocalDateTime inicio;
     private LocalDateTime fim;
     private double valorTotal;
-    private ReservaStatus status; // <--- novo
-
+    private ReservaStatus status;
     public enum Status {
         ATIVA,
         CANCELADA
     }
 
-    // Construtor atual (mantém cálculo automático)
     public Reserva(String idReserva, Espaco espaco, LocalDateTime inicio, LocalDateTime fim) {
         this.idReserva = idReserva;
         this.espaco = espaco;
@@ -26,10 +24,9 @@ public class Reserva {
         this.fim = fim;
         double horas = calcularHoras();
         this.valorTotal = espaco.calcularCustoReserva(horas);
-        this.status = ReservaStatus.ATIVA; // padrão ao criar
+        this.status = ReservaStatus.ATIVA;
     }
 
-    // Construtor adicional para carregar do JSON com valor e status já definidos
     public Reserva(String idReserva, Espaco espaco, LocalDateTime inicio, LocalDateTime fim, double valorTotal, ReservaStatus status) {
         this.idReserva = idReserva;
         this.espaco = espaco;
@@ -38,8 +35,6 @@ public class Reserva {
         this.valorTotal = valorTotal;
         this.status = status != null ? status : ReservaStatus.ATIVA;
     }
-
-    //getters/setters
 
 	 public String getIdReserva() {
 		 return idReserva;

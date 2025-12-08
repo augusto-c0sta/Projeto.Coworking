@@ -14,7 +14,7 @@ import model.ReservaStatus;
 public class ReservaDAO extends DAO {
 
     public ReservaDAO() {
-        super("Reservas"); // define o arquivo certo
+        super("Reservas");
     }
 
     public void salvarReserva(Reserva reserva) {
@@ -33,15 +33,11 @@ public class ReservaDAO extends DAO {
         salvarArray(array);
     }
 
-    // ======================================================
-    // LISTAR TODAS AS RESERVAS
-    // ======================================================
     public List<Reserva> listarTodos(EspacoDAO espacoDAO) {
 
         List<Reserva> lista = new ArrayList<>();
         JsonArray array = lerArray();
 
-        // percorre cada objeto do JSON
         for (var elemento : array) {
 
             JsonObject obj = elemento.getAsJsonObject();
@@ -53,7 +49,6 @@ public class ReservaDAO extends DAO {
             LocalDateTime fim = LocalDateTime.parse(obj.get("fim").getAsString());
             double total = obj.get("valorTotal").getAsDouble();
 
-            // RECONSTROI O ESPAÇO CORRETAMENTE
             Espaco espaco = espacoDAO.buscarPorId(idEspaco);
 
             String statusStr = obj.has("status") && !obj.get("status").isJsonNull()
@@ -61,7 +56,6 @@ public class ReservaDAO extends DAO {
                     : "ATIVA";
             ReservaStatus status = ReservaStatus.valueOf(statusStr);
             
-            // construtor da sua classe Reserva
             Reserva r = new Reserva(idReserva, espaco, inicio, fim,  total, status);
             r.setValorTotal(total);
 
@@ -71,9 +65,6 @@ public class ReservaDAO extends DAO {
         return lista;
     }
 
-    // ======================================================
-    // BUSCAR RESERVA POR ID
-    // ======================================================
     public Reserva buscarPorId(String idReserva, EspacoDAO espacoDAO) {
 
         JsonArray array = lerArray();
@@ -98,9 +89,6 @@ public class ReservaDAO extends DAO {
         return null;
     }
 
-    // ======================================================
-    // BUSCAR TODAS AS RESERVAS DE UM ESPAÇO
-    // ======================================================
     public List<Reserva> buscarReservasPorEspaco(String idEspaco, EspacoDAO espacoDAO) {
 
         List<Reserva> lista = new ArrayList<>();
@@ -131,7 +119,7 @@ public class ReservaDAO extends DAO {
         for (var elemento : array) {
             JsonObject obj = elemento.getAsJsonObject();
             if (obj.get("idReserva").getAsString().equals(reserva.getIdReserva())) {
-                // criar objeto atualizado
+
                 JsonObject u = new JsonObject();
                 u.addProperty("idReserva", reserva.getIdReserva());
                 u.addProperty("idEspaco", reserva.getEspaco().getId());

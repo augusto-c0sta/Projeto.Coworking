@@ -14,25 +14,20 @@ import model.Auditorio;
 public class EspacoDAO extends DAO {
 
     public EspacoDAO() {
-        super("Espacos"); // tudo vai para "Espacos.json"
+        super("Espacos");
     }
 
-    // -----------------------------------
-    // SALVAR (polimórfico)
-    // -----------------------------------
     public void salvar(Espaco espaco) {
 
         JsonArray array = lerArray();
         JsonObject obj = new JsonObject();
 
-        // dados comuns
         obj.addProperty("id", espaco.getId());
         obj.addProperty("nome", espaco.getNome());
         obj.addProperty("capacidade", espaco.getCapacidade());
         obj.addProperty("disponivel", espaco.isDisponivel());
         obj.addProperty("precoPorHora", espaco.getPrecoPorHora());
 
-        // dados específicos
         if (espaco instanceof SalaDeReuniao sala) {
             obj.addProperty("tipo", "SalaDeReuniao");
             obj.addProperty("projetor", sala.isUsoDoProjetor());
@@ -45,15 +40,11 @@ public class EspacoDAO extends DAO {
             obj.addProperty("evento", auditorio.isEvento());
         }
 
-        // adiciona ao json
         array.add(obj);
 
         salvarArray(array);
     }
 
-    // -----------------------------------
-    // LISTAR TODOS (polimórfico)
-    // -----------------------------------
     public List<Espaco> listarTodos() {
 
         List<Espaco> lista = new ArrayList<>();
@@ -119,14 +110,12 @@ public class EspacoDAO extends DAO {
 
             JsonObject obj = elemento.getAsJsonObject();
 
-            // 🔍 Se o ID não combina, continua
             if (!obj.get("id").getAsString().equals(id)) {
                 continue;
             }
 
             String tipo = obj.get("tipo").getAsString();
 
-            // 🔥 Usa leitura segura SEMPRE para campos opcionais
             boolean projetor = getBooleanSafe(obj, "projetor");
             boolean evento = getBooleanSafe(obj, "evento");
 

@@ -20,8 +20,6 @@ public abstract class Espaco {
 		this.disponivel=disponivel;
 		this.precoPorHora=precoPorHora;
 	}
-	
-	//Getters e Setters
 
 	public String getId() {
 		return id;
@@ -63,7 +61,6 @@ public abstract class Espaco {
 		this.precoPorHora = precoPorHora;
 	}
 	
-	//toString
 	@Override
 	public String toString() {
 		String disp = disponivel ? "Sim" : "Não";

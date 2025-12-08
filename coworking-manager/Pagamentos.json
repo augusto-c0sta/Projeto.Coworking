@@ -12,5 +12,19 @@
     "valorPago": 400.0,
     "data": "2025-12-08T14:13:19.626633300",
     "metodo": "dinheiro"
+  },
+  {
+    "idPagamento": "9090",
+    "idReserva": "0000",
+    "valorPago": 400.0,
+    "data": "2025-12-08T15:34:03.928960500",
+    "metodo": "pix"
+  },
+  {
+    "idPagamento": "700",
+    "idReserva": "0002",
+    "valorPago": 55.0,
+    "data": "2025-12-08T15:53:22.791921500",
+    "metodo": "pix"
   }
 ]

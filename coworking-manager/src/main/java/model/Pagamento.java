@@ -8,7 +8,7 @@ public class Pagamento {
     private String idReserva;
     private double valorPago;
     private LocalDateTime data;
-    private String metodo; // "PIX", "CARTAO", "DINHEIRO"
+    private String metodo;
 
     public Pagamento(String idPagamento, String idReserva, double valorPago, LocalDateTime data, String metodo) {
         this.idPagamento = idPagamento;
@@ -18,7 +18,6 @@ public class Pagamento {
         this.metodo = metodo;
     }
 
-    // getters/setters
     public String getIdPagamento() { return idPagamento; }
     public String getIdReserva() { return idReserva; }
     public double getValorPago() { return valorPago; }

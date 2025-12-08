@@ -10,12 +10,10 @@ public class CabineIndividual extends Espaco {
         super(id, nome, capacidade, disponivel, precoPorHora);
     }
     
-    //método abstrato sobrescrito
     @Override    
     public double calcularCustoReserva(double horas) {
         double total = horas * getPrecoPorHora();
-        
-        // desconto de 10% acima de 4 horas       
+           
         if (horas>4) {
             total *= 0.90; 
         }
@@ -23,7 +21,6 @@ public class CabineIndividual extends Espaco {
         return total;
 	}
 
-	//toString
     @Override 
     public String toString() {
         return super.toString() + 
