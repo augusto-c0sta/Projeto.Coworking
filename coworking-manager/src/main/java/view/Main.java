@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import Exceptions.CampoVazioException;
-
 import model.Auditorio;
 import model.CabineIndividual;
 import model.Espaco;
@@ -40,8 +39,7 @@ public class Main {
             System.out.println("6 - Buscar Reserva por ID");
             System.out.println("7 - Cancelar Reserva");
             System.out.println("----------------------------------");
-            System.out.println("8 - Registrar Pagamento");
-            System.out.println("9 - Listar Pagamentos");
+            System.out.println("8 - Listar Pagamentos");
             System.out.println("----------------------------------");
             System.out.println("0 - Sair");
             System.out.print("Escolha: ");
@@ -49,6 +47,7 @@ public class Main {
             String opcao = sc.nextLine();
 
             try {
+
                 switch (opcao) {
 
                     case "1" -> cadastrarEspaco();
@@ -57,12 +56,15 @@ public class Main {
                     case "4" -> criarReserva();
                     case "5" -> listarReservas();
                     case "6" -> buscarReserva();
-                    case "8" -> registrarPagamento();
+                    case "7" -> cancelarReserva();
+                    case "8" -> listarPagamentos();
+
                     case "0" -> {
                         System.out.println("Encerrando o programa...");
                         return;
                     }
-                    default -> System.out.println(" Opção inválida!");
+
+                    default -> System.out.println("❌ Opção inválida!");
                 }
 
             } catch (CampoVazioException e) {
@@ -72,30 +74,13 @@ public class Main {
             } catch (Exception e) {
                 System.out.println(" Erro inesperado: " + e.getMessage());
             }
+
         }
+
     }
 
-    // ===============================================================
-    // MÉTODO DE LEITURA SEGURA DE DATA/HORA
-    // ===============================================================
-    private static LocalDateTime lerDataHora(String msg) {
-        System.out.println(msg + " (formato: yyyy-MM-dd HH:mm)");
-
-        while (true) {
-            try {
-                String txt = sc.nextLine().trim();
-                txt = txt.replace(" ", "T");
-                return LocalDateTime.parse(txt);
-
-            } catch (Exception e) {
-                System.out.println("Formato inválido! Use: yyyy-MM-dd HH:mm");
-            }
-        }
-    }
-
-    // ===============================================================
-    // CADASTRAR ESPAÇO
-    // ===============================================================
+    // Cadastrar espaços
+    
     private static void cadastrarEspaco() throws Exception {
 
         System.out.println("\n=== CADASTRO DE ESPAÇO ===");
@@ -139,7 +124,9 @@ public class Main {
                 novo = new SalaDeReuniao(id, nome, capacidade, true, preco, proj);
             }
 
-            case "2" -> novo = new CabineIndividual(id, nome, capacidade, true, preco);
+            case "2" -> {
+                novo = new CabineIndividual(id, nome, capacidade, true, preco);
+            }
 
             case "3" -> {
                 System.out.print("É para eventos? (true/false): ");
@@ -157,9 +144,8 @@ public class Main {
         System.out.println(" Espaço cadastrado com sucesso!");
     }
 
-    // ===============================================================
-    // LISTAR ESPAÇOS
-    // ===============================================================
+    // Listar espaços
+    
     private static void listarEspacos() {
 
         System.out.println("\n=== LISTA DE ESPAÇOS ===");
@@ -177,9 +163,8 @@ public class Main {
         }
     }
 
-    // ===============================================================
-    // BUSCAR ESPAÇO POR ID
-    // ===============================================================
+    // Buscar espaço pelo ID
+    
     private static void buscarEspaco() throws CampoVazioException {
 
         System.out.print("\nDigite o ID: ");
@@ -197,9 +182,8 @@ public class Main {
         System.out.println(e);
     }
 
-    // ===============================================================
-    // CRIAR RESERVA
-    // ===============================================================
+    // Criar reserva
+    
     private static void criarReserva() throws CampoVazioException {
 
         System.out.println("\n=== CRIAR RESERVA ===");
@@ -212,16 +196,20 @@ public class Main {
         String idEspaco = sc.nextLine();
         Validacao.obrigatorio(idEspaco, "ID Espaço");
 
-        LocalDateTime inicio = lerDataHora("Início");
-        LocalDateTime fim = lerDataHora("Fim");
+        System.out.print("Início (AAAA-MM-DD HH:MM): ");
+        String inicioStr = sc.nextLine();
+        LocalDateTime inicio = LocalDateTime.parse(inicioStr.replace(" ", "T"));
+
+        System.out.print("Fim (AAAA-MM-DD HH:MM): ");
+        String fimStr = sc.nextLine();
+        LocalDateTime fim = LocalDateTime.parse(fimStr.replace(" ", "T"));
 
         reservaService.criarReserva(idReserva, idEspaco, inicio, fim);
         System.out.println(" Reserva criada com sucesso!");
     }
 
-    // ===============================================================
-    // LISTAR RESERVAS
-    // ===============================================================
+    // Listar reservas
+    
     private static void listarReservas() {
 
         System.out.println("\n=== LISTA DE RESERVAS ===");
@@ -239,9 +227,8 @@ public class Main {
         }
     }
 
-    // ===============================================================
-    // BUSCAR RESERVA POR ID
-    // ===============================================================
+    // Buscar reserva pelo id
+    
     private static void buscarReserva() throws CampoVazioException {
 
         System.out.print("\nDigite o ID da reserva: ");
@@ -259,33 +246,39 @@ public class Main {
         System.out.println(r);
     }
 
-    // ===============================================================
-    // REGISTRAR PAGAMENTO
-    // ===============================================================
-    private static void registrarPagamento() throws CampoVazioException {
+    // Cancelar reserva
+    
+    private static void cancelarReserva() throws CampoVazioException {
 
-        System.out.println("\n=== REGISTRAR PAGAMENTO ===");
+        System.out.print("\nID da reserva: ");
+        String id = sc.nextLine();
+        Validacao.obrigatorio(id, "ID Reserva");
 
-        System.out.print("ID do pagamento: ");
-        String idPag = sc.nextLine();
-        Validacao.obrigatorio(idPag, "ID Pagamento");
+        double taxa = reservaService.cancelarReserva(id);
 
-        System.out.print("ID da reserva: ");
-        String idReserva = sc.nextLine();
-        Validacao.obrigatorio(idReserva, "ID Reserva");
-
-        System.out.print("Valor pago: ");
-        String valorStr = sc.nextLine();
-        Validacao.obrigatorio(valorStr, "Valor");
-        double valor = Double.parseDouble(valorStr);
-
-        System.out.print("Método (PIX, CARTAO, DINHEIRO): ");
-        String metodo = sc.nextLine();
-        Validacao.obrigatorio(metodo, "Método");
-
-        pagamentoService.processarPagamento(idPag, idReserva, valor, metodo);
-
-        System.out.println(" Pagamento registrado com sucesso!");
+        if (taxa > 0) {
+            System.out.println("Reserva cancelada com taxa de 20%: R$ " + taxa);
+        } else {
+            System.out.println("Reserva cancelada sem custo!");
+        }
     }
 
+    // Listar pagamentos
+    
+    private static void listarPagamentos() {
+
+        System.out.println("\n=== PAGAMENTOS ===");
+
+        List<Pagamento> lista = pagamentoService.listarPagamentos();
+
+        if (lista.isEmpty()) {
+            System.out.println("Nenhum pagamento registrado.");
+            return;
+        }
+
+        for (Pagamento p : lista) {
+            System.out.println("-----------------------------");
+            System.out.println(p);
+        }
+    }
 }

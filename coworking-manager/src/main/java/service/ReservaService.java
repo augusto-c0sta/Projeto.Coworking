@@ -6,6 +6,7 @@ import java.util.List;
 import dao.ReservaDAO;
 import dao.EspacoDAO;
 
+import model.ReservaStatus;
 import model.Espaco;
 import model.Reserva;
 
@@ -129,5 +130,32 @@ public class ReservaService {
         for (Espaco e : lista) {
             atualizarDisponibilidade(e);
         }
+    }
+    public double cancelarReserva(String idReserva) {
+
+        Reserva r = reservaDAO.buscarPorId(idReserva, espacoDAO);
+
+        if (r == null) {
+            throw new RuntimeException("Reserva não encontrada.");
+        }
+
+        if (r.getStatus() == ReservaStatus.CANCELADA) {
+            throw new RuntimeException("Esta reserva já está cancelada.");
+        }
+
+        LocalDateTime agora = LocalDateTime.now();
+        long horas = java.time.Duration.between(agora, r.getInicio()).toHours();
+
+        double taxa = 0.0;
+
+        if (horas < 24) {
+            taxa = r.getValorTotal() * 0.20;
+        }
+
+        r.setStatus(ReservaStatus.CANCELADA);
+
+        reservaDAO.atualizar(r);
+
+        return taxa;
     }
 }

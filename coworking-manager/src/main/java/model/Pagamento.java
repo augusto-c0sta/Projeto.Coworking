@@ -24,4 +24,20 @@ public class Pagamento {
     public double getValorPago() { return valorPago; }
     public LocalDateTime getData() { return data; }
     public String getMetodo() { return metodo; }
+    
+    public String toString() {
+        return """
+                ID Pagamento: %s
+                ID Reserva: %s
+                Valor Pago: R$ %.2f
+                Data: %s
+                Método: %s
+                """.formatted(
+                        idPagamento,
+                        idReserva,
+                        valorPago,
+                        data,
+                        metodo
+                );
+    }
 }

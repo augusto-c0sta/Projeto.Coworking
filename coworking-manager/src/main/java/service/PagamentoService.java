@@ -2,6 +2,7 @@ package service;
 
 import java.time.LocalDateTime;
 
+import java.util.List;
 import dao.PagamentoDAO;
 import dao.ReservaDAO;
 import model.Pagamento;
@@ -26,5 +27,8 @@ public class PagamentoService {
         // atualizar status da reserva para CONCLUIDA (ou outro fluxo que prefira)
         r.setStatus(ReservaStatus.CONCLUIDA);
         reservaDAO.atualizar(r);
+    }
+    public List<Pagamento> listarPagamentos() {
+        return pagamentoDAO.listarTodos();
     }
 }

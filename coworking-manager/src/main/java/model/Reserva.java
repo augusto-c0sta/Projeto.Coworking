@@ -13,6 +13,11 @@ public class Reserva {
     private double valorTotal;
     private ReservaStatus status; // <--- novo
 
+    public enum Status {
+        ATIVA,
+        CANCELADA
+    }
+
     // Construtor atual (mantém cálculo automático)
     public Reserva(String idReserva, Espaco espaco, LocalDateTime inicio, LocalDateTime fim) {
         this.idReserva = idReserva;
