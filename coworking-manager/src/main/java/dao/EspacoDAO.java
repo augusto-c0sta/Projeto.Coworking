@@ -119,43 +119,86 @@ public class EspacoDAO extends DAO {
 
             JsonObject obj = elemento.getAsJsonObject();
 
-            if (!obj.get("id").getAsString().equals(id)) continue;
+            // 🔍 Se o ID não combina, continua
+            if (!obj.get("id").getAsString().equals(id)) {
+                continue;
+            }
 
             String tipo = obj.get("tipo").getAsString();
+
+            // 🔥 Usa leitura segura SEMPRE para campos opcionais
+            boolean projetor = getBooleanSafe(obj, "projetor");
+            boolean evento = getBooleanSafe(obj, "evento");
 
             switch (tipo) {
 
                 case "SalaDeReuniao":
                     return new SalaDeReuniao(
-                        obj.get("id").getAsString(),
-                        obj.get("nome").getAsString(),
-                        obj.get("capacidade").getAsInt(),
-                        obj.get("disponivel").getAsBoolean(),
-                        obj.get("precoPorHora").getAsDouble(),
-                        getBooleanSafe(obj, "projetor")
+                            obj.get("id").getAsString(),
+                            obj.get("nome").getAsString(),
+                            obj.get("capacidade").getAsInt(),
+                            obj.get("disponivel").getAsBoolean(),
+                            obj.get("precoPorHora").getAsDouble(),
+                            projetor
                     );
 
                 case "CabineIndividual":
                     return new CabineIndividual(
-                        obj.get("id").getAsString(),
-                        obj.get("nome").getAsString(),
-                        obj.get("capacidade").getAsInt(),
-                        obj.get("disponivel").getAsBoolean(),
-                        obj.get("precoPorHora").getAsDouble()
+                            obj.get("id").getAsString(),
+                            obj.get("nome").getAsString(),
+                            obj.get("capacidade").getAsInt(),
+                            obj.get("disponivel").getAsBoolean(),
+                            obj.get("precoPorHora").getAsDouble()
                     );
 
                 case "Auditorio":
                     return new Auditorio(
-                        obj.get("id").getAsString(),
-                        obj.get("nome").getAsString(),
-                        obj.get("capacidade").getAsInt(),
-                        obj.get("disponivel").getAsBoolean(),
-                        obj.get("precoPorHora").getAsDouble(),
-                        getBooleanSafe(obj, "evento")
+                            obj.get("id").getAsString(),
+                            obj.get("nome").getAsString(),
+                            obj.get("capacidade").getAsInt(),
+                            obj.get("disponivel").getAsBoolean(),
+                            obj.get("precoPorHora").getAsDouble(),
+                            evento
                     );
             }
         }
 
         return null;
     }
+    
+    public void salvarAtualizacao(Espaco espacoAtualizado) {
+
+        JsonArray array = lerArray();
+        JsonArray novoArray = new JsonArray();
+
+        for (var elemento : array) {
+            JsonObject obj = elemento.getAsJsonObject();
+
+            if (obj.get("id").getAsString().equals(espacoAtualizado.getId())) {
+                JsonObject atualizado = new JsonObject();
+
+                atualizado.addProperty("id", espacoAtualizado.getId());
+                atualizado.addProperty("nome", espacoAtualizado.getNome());
+                atualizado.addProperty("capacidade", espacoAtualizado.getCapacidade());
+                atualizado.addProperty("disponivel", espacoAtualizado.isDisponivel());
+                atualizado.addProperty("precoPorHora", espacoAtualizado.getPrecoPorHora());
+                atualizado.addProperty("tipo", obj.get("tipo").getAsString());
+
+                if (espacoAtualizado instanceof SalaDeReuniao sala) {
+                    atualizado.addProperty("projetor", sala.isUsoDoProjetor());
+                }
+
+                if (espacoAtualizado instanceof Auditorio a) {
+                    atualizado.addProperty("evento", a.isEvento());
+                }
+
+                novoArray.add(atualizado);
+            } else {
+                novoArray.add(obj);
+            }
+        }
+
+        salvarArray(novoArray);
+    }
+    
 }

@@ -56,6 +56,7 @@ public class ReservaDAO extends DAO {
 
             // construtor da sua classe Reserva
             Reserva r = new Reserva(idReserva, espaco, inicio, fim);
+            r.setValorTotal(total);
 
             lista.add(r);
         }

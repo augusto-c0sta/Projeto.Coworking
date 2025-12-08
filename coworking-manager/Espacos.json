@@ -1,10 +1,10 @@
 [
   {
-    "id": "S178",
-    "nome": "Sala Azul dos marinheiros",
-    "capacidade": 10,
+    "id": "0001",
+    "nome": "lalala",
+    "capacidade": 20,
     "disponivel": true,
-    "precoPorHora": 50.0,
+    "precoPorHora": 90.0,
     "tipo": "SalaDeReuniao",
     "projetor": true
   }

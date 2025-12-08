@@ -1,9 +1,16 @@
 [
   {
-    "idReserva": "R1",
-    "idEspaco": "S178",
-    "inicio": "2025-01-10T14:00",
-    "fim": "2025-01-10T17:00",
-    "valorTotal": 165.0
+    "idReserva": "1000",
+    "idEspaco": "0001",
+    "inicio": "2025-12-13T11:00",
+    "fim": "2025-12-13T12:00",
+    "valorTotal": 105.0
+  },
+  {
+    "idReserva": "2000",
+    "idEspaco": "0002",
+    "inicio": "2025-12-16T10:00",
+    "fim": "2025-12-16T15:00",
+    "valorTotal": 450.0
   }
 ]
