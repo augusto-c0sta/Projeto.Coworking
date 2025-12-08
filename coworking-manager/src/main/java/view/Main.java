@@ -62,15 +62,15 @@ public class Main {
                         System.out.println("Encerrando o programa...");
                         return;
                     }
-                    default -> System.out.println("❌ Opção inválida!");
+                    default -> System.out.println(" Opção inválida!");
                 }
 
             } catch (CampoVazioException e) {
-                System.out.println("⚠ Erro: " + e.getMessage());
+                System.out.println(" Erro: " + e.getMessage());
             } catch (RuntimeException e) {
-                System.out.println("❌ Erro: " + e.getMessage());
+                System.out.println(" Erro: " + e.getMessage());
             } catch (Exception e) {
-                System.out.println("⚠ Erro inesperado: " + e.getMessage());
+                System.out.println(" Erro inesperado: " + e.getMessage());
             }
         }
     }
@@ -148,13 +148,13 @@ public class Main {
             }
 
             default -> {
-                System.out.println("❌ Tipo inválido!");
+                System.out.println(" Tipo inválido!");
                 return;
             }
         }
 
         espacoService.cadastrarEspaco(novo);
-        System.out.println("✔ Espaço cadastrado com sucesso!");
+        System.out.println(" Espaço cadastrado com sucesso!");
     }
 
     // ===============================================================
@@ -189,7 +189,7 @@ public class Main {
         Espaco e = espacoService.buscarPorId(id);
 
         if (e == null) {
-            System.out.println("❌ Espaço não encontrado.");
+            System.out.println(" Espaço não encontrado.");
             return;
         }
 
@@ -216,7 +216,7 @@ public class Main {
         LocalDateTime fim = lerDataHora("Fim");
 
         reservaService.criarReserva(idReserva, idEspaco, inicio, fim);
-        System.out.println("✔ Reserva criada com sucesso!");
+        System.out.println(" Reserva criada com sucesso!");
     }
 
     // ===============================================================
@@ -251,7 +251,7 @@ public class Main {
         Reserva r = reservaService.buscarPorId(id);
 
         if (r == null) {
-            System.out.println("❌ Reserva não encontrada.");
+            System.out.println(" Reserva não encontrada.");
             return;
         }
 
@@ -285,7 +285,7 @@ public class Main {
 
         pagamentoService.processarPagamento(idPag, idReserva, valor, metodo);
 
-        System.out.println("✔ Pagamento registrado com sucesso!");
+        System.out.println(" Pagamento registrado com sucesso!");
     }
 
 }

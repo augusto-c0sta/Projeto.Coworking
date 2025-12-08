@@ -44,7 +44,7 @@ public class ReservaService {
 
         reservaDAO.salvarReserva(nova);
 
-        // após salvar a reserva → atualizar disponibilidade automática
+        // após salvar a reserva atualizar disponibilidade automática
         atualizarDisponibilidade(espaco);
     }
 
