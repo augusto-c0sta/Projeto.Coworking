@@ -1,0 +1,16 @@
+[
+  {
+    "idPagamento": "1000",
+    "idReserva": "0001",
+    "valorPago": 95.0,
+    "data": "2025-12-08T14:06:41.488231",
+    "metodo": "PIX"
+  },
+  {
+    "idPagamento": "0000",
+    "idReserva": "0000",
+    "valorPago": 400.0,
+    "data": "2025-12-08T14:13:19.626633300",
+    "metodo": "dinheiro"
+  }
+]

@@ -1,16 +1,18 @@
 [
   {
-    "idReserva": "1000",
+    "idReserva": "0001",
     "idEspaco": "0001",
-    "inicio": "2025-12-13T11:00",
-    "fim": "2025-12-13T12:00",
-    "valorTotal": 105.0
+    "inicio": "2025-12-30T10:00",
+    "fim": "2025-12-30T11:00",
+    "valorTotal": 95.0,
+    "status": "CONCLUIDA"
   },
   {
-    "idReserva": "2000",
-    "idEspaco": "0002",
-    "inicio": "2025-12-16T10:00",
-    "fim": "2025-12-16T15:00",
-    "valorTotal": 450.0
+    "idReserva": "0000",
+    "idEspaco": "9090",
+    "inicio": "2025-12-31T10:00",
+    "fim": "2025-12-31T14:00",
+    "valorTotal": 400.0,
+    "status": "CONCLUIDA"
   }
 ]

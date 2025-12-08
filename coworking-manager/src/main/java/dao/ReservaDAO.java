@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 
 import model.Espaco;
 import model.Reserva;
+import model.ReservaStatus;
 
 public class ReservaDAO extends DAO {
 
@@ -26,6 +27,7 @@ public class ReservaDAO extends DAO {
         obj.addProperty("inicio", reserva.getInicio().toString());
         obj.addProperty("fim", reserva.getFim().toString());
         obj.addProperty("valorTotal", reserva.getValorTotal());
+        obj.addProperty("status", reserva.getStatus().name());
 
         array.add(obj);
         salvarArray(array);
@@ -54,8 +56,13 @@ public class ReservaDAO extends DAO {
             // RECONSTROI O ESPAÇO CORRETAMENTE
             Espaco espaco = espacoDAO.buscarPorId(idEspaco);
 
+            String statusStr = obj.has("status") && !obj.get("status").isJsonNull()
+                    ? obj.get("status").getAsString()
+                    : "ATIVA";
+            ReservaStatus status = ReservaStatus.valueOf(statusStr);
+            
             // construtor da sua classe Reserva
-            Reserva r = new Reserva(idReserva, espaco, inicio, fim);
+            Reserva r = new Reserva(idReserva, espaco, inicio, fim,  total, status);
             r.setValorTotal(total);
 
             lista.add(r);
@@ -83,7 +90,7 @@ public class ReservaDAO extends DAO {
                 LocalDateTime fim = LocalDateTime.parse(obj.get("fim").getAsString());
 
                 Espaco espaco = espacoDAO.buscarPorId(idEspaco);
-
+                
                 return new Reserva(idReserva, espaco, inicio, fim);
             }
         }
@@ -116,6 +123,29 @@ public class ReservaDAO extends DAO {
         }
 
         return lista;
+    }
+    public void atualizar(Reserva reserva) {
+        JsonArray array = lerArray();
+        JsonArray novo = new JsonArray();
+
+        for (var elemento : array) {
+            JsonObject obj = elemento.getAsJsonObject();
+            if (obj.get("idReserva").getAsString().equals(reserva.getIdReserva())) {
+                // criar objeto atualizado
+                JsonObject u = new JsonObject();
+                u.addProperty("idReserva", reserva.getIdReserva());
+                u.addProperty("idEspaco", reserva.getEspaco().getId());
+                u.addProperty("inicio", reserva.getInicio().toString());
+                u.addProperty("fim", reserva.getFim().toString());
+                u.addProperty("valorTotal", reserva.getValorTotal());
+                u.addProperty("status", reserva.getStatus().name());
+                novo.add(u);
+            } else {
+                novo.add(obj);
+            }
+        }
+
+        salvarArray(novo);
     }
 
 }

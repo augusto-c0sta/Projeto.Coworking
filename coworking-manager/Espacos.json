@@ -1,11 +1,20 @@
 [
   {
     "id": "0001",
-    "nome": "lalala",
-    "capacidade": 20,
+    "nome": "lala",
+    "capacidade": 40,
     "disponivel": true,
-    "precoPorHora": 90.0,
+    "precoPorHora": 80.0,
     "tipo": "SalaDeReuniao",
     "projetor": true
+  },
+  {
+    "id": "9090",
+    "nome": "jjj",
+    "capacidade": 80,
+    "disponivel": true,
+    "precoPorHora": 100.0,
+    "tipo": "Auditorio",
+    "evento": false
   }
 ]
