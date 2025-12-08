@@ -18,12 +18,26 @@ public class Pagamento {
         this.metodo = metodo;
     }
 
-    public String getIdPagamento() { return idPagamento; }
-    public String getIdReserva() { return idReserva; }
-    public double getValorPago() { return valorPago; }
-    public LocalDateTime getData() { return data; }
-    public String getMetodo() { return metodo; }
+    public String getIdPagamento() { 
+    	return idPagamento; 
+    }
     
+    public String getIdReserva() { 
+    	return idReserva; 
+    }
+    
+    public double getValorPago() { 
+    	return valorPago; 
+    }
+    
+    public LocalDateTime getData() { 
+    	return data; 
+    }
+    public String getMetodo() { 
+    	return metodo; 
+    }
+    
+    @Override
     public String toString() {
         return """
                 ID Pagamento: %s
